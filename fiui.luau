@@ -1,3 +1,5 @@
+-- fixed this script for my forsaken script lul
+
 local function Create(instance, properties, children)
 	local obj = Instance.new(instance)
 
@@ -608,13 +610,13 @@ function Gui.Window(name, subt, image, gradient, colortheme, theme2)
 				})
 				
 				function section_data.Toggle(name, callback, def)
-					section_data:AddToggle("", name, callback, def)
+					section_data:AddToggle(name, name, callback, def)
 				end
 				function section_data.Button(name, callback)
 					section_data:AddButton(name, callback)
 				end
 				function section_data.Slider(name, def, min, max, callback)
-					section_data:AddSlider("", name, min, max, def, callback)
+					section_data:AddSlider(name, name, min, max, def, callback)
 				end
 
 				function section_data:AddButton(name, cback)
@@ -770,7 +772,7 @@ function Gui.Window(name, subt, image, gradient, colortheme, theme2)
 				function section_data:AddDropdown(id, name, array, cback)
 					pageUpdateSize(39, 7)
 					section_data.o = section_data.o + 1
-					flags[id] = {S = "", Refresh = function() end}
+					flags[id] = {S = name, Refresh = function() end}
 					local Button = Create("Frame", {
 						BackgroundColor3 = Color3.fromRGB(75, 75, 75),
 						BackgroundTransparency = 0.75,
@@ -1326,51 +1328,5 @@ function Gui.Window(name, subt, image, gradient, colortheme, theme2)
 		return window_data;
 end
 Flags = flags
-
---[[ Arguments:
-1: Name of the gui
-2: The sub title
-3: Icon image
-4: Wether or not the gui will be transparent
-5: The color theme
-]]
-if false then
-	local MyUI = Gui.Window("FluentInspired", "e.g your favourite game", "rbxassetid://118689160394652", false, Color3.fromRGB(150, 63, 204))
-
-	-- name: string, image: string
-	local Farming = MyUI:Tab("Visual", "rbxassetid://82995574282299")
-
-	-- Section (Name)
-	local MainSection = Farming:AddSection("Section For Cools")
-	local MiscSection = Farming:AddSection("For non cools")
-
-	-- Toggle (Flag, Name, Callback)
-	MainSection:AddToggle("toggle", "Toggle", print)
-
-	-- Dropdown (Flag, Name, List, Callback) Refresh with Flags[Flag].Refresh(Newlist)
-	MainSection:AddDropdown("drop", "Dropdown", game.Players:GetPlayers(), function(v)
-		print(v.UserId)
-	end)	
-
-	-- Button (Name, callback)
-	MainSection:AddButton("Refresh List", function()
-		Flags.drop.Refresh({"Synapse X", "Kiwi X", "Delta X", "AWP", "Scamsploit", "Exitscamware"})
-	end)
-
-	-- Slider (Flag, Name, Default, Minimum, Maximum, Callback)
-	MiscSection:AddSlider("fort", "Fotnite", 5, 69, 69, function(s) 
-		print(Flags.fort.Value)
-	end)
-
-	-- Textbox (Flag, Name, Placeholder, Callback)
-	MiscSection:AddTextbox("name", "Your Name", "etner it!", function(text)
-		print(Flags.name.Text .. " : " .. string.len(text)) 
-	end)
-
-	-- Chooser/incremental (Flag, Name, Increment, Minimum, Maximum, Default, Callback)
-	MiscSection:AddChooser("num", "Select Index", 1, 1, 25, 1, function(number)
-		print(number)
-	end)
-end
 
 return Gui
