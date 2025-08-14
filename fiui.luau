@@ -55,7 +55,7 @@ local Gui = {}
 function Gui.Window(name, subt, image, gradient, colortheme, theme2)
 		local window_data = {}
 		local Main = Create("ScreenGui", {
-			Parent = Persons.LocalPlayer.PlayerGui,
+			Parent = game:GetService("RunService"):IsStudio() and Persons.LocalPlayer.PlayerGui or gethui(),
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true
 		},{
